@@ -8,7 +8,6 @@ type Utils struct {
 
 type Options struct {
 	EnvironmentVarPrefix     string
-	EnvironmentVarSeparator  string
 	SentryURL                string
 	PurifyReplacer           string
 	PrometheusRequestsVector *prometheus.HistogramVec
@@ -18,4 +17,8 @@ type Options struct {
 type NameElements struct {
 	FirstName string `json:"first_name"`
 	LastName  string `json:"last_name"`
+}
+type SortedMapItem struct {
+	Key   string
+	Value int
 }

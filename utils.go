@@ -82,8 +82,8 @@ func (u *Utils) UniqueStrings(input []string) []string {
 
 // ReportError - Report an error with Sentry (if in use) and logrus.
 func (u *Utils) ReportError(location string, err error) {
-	key := os.Getenv(fmt.Sprintf("%s%sSENTRY_KEY", u.options.EnvironmentVarPrefix, u.options.EnvironmentVarSeparator))
-	project := os.Getenv(fmt.Sprintf("%s%sSENTRY_PROJECT", u.options.EnvironmentVarPrefix, u.options.EnvironmentVarSeparator))
+	key := os.Getenv(fmt.Sprintf("%s_SENTRY_KEY", u.options.EnvironmentVarPrefix))
+	project := os.Getenv(fmt.Sprintf("%s_SENTRY_PROJECT", u.options.EnvironmentVarPrefix))
 	errorMessage := fmt.Sprintf("Location: %s ~ Error: %v", location, err)
 	if key != "" && project != "" {
 		sentryDSN := fmt.Sprintf("https://%s@%s/%s", key, u.options.SentryURL, project)
@@ -221,4 +221,24 @@ func (u *Utils) GenerateSimpleUID(fromString string) string {
 	hash.Write([]byte(fromString))
 	simpleMD5 := hex.EncodeToString(hash.Sum(nil))
 	return fmt.Sprintf("%s-%s-%s-%s-%s", simpleMD5[:8], simpleMD5[8:12], simpleMD5[12:16], simpleMD5[16:20], simpleMD5[20:32])
+}
+
+func (u *Utils) SortMap(m map[string]int, dir string) []SortedMapItem {
+	dir = strings.ToLower(dir)
+	var ss []SortedMapItem
+	for k, v := range m {
+		ss = append(ss, SortedMapItem{k, v})
+	}
+
+	sort.Slice(ss, func(i, j int) bool {
+		switch dir {
+		case "asc":
+			return ss[i].Value < ss[j].Value
+		case "desc":
+			return ss[i].Value > ss[j].Value
+		default:
+			return ss[i].Value < ss[j].Value
+		}
+	})
+	return ss
 }
