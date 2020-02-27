@@ -148,6 +148,7 @@ func (u *Utils) TokenizeStrings(normalStrings ...string) string {
 		stripped := strip.StripTags(ns)
 		fullText += " " + strings.ToLower(stripped)
 	}
+	fullText = strings.Trim(fullText, " ")
 	// clean up any special characters
 	fullTextPurified := u.Purify(fullText, " ")
 	// de-duplicate the full text
