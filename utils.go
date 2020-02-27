@@ -50,7 +50,8 @@ func (u *Utils) Purify(str string, replacer string) string {
 	str = strings.Replace(str, strings.Repeat(defaultReplacer, 2), defaultReplacer, -1)
 
 	// Finally, replace the default replacer with the one passed in
-	str = strings.Replace(str, defaultReplacer, u.options.PurifyReplacer, -1)
+	str = strings.Replace(str, defaultReplacer, replacer, -1)
+	str = strings.Trim(str, replacer)
 	return str
 }
 
