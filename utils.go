@@ -41,14 +41,12 @@ func (u *Utils) Purify(str string, replacer string) string {
 
 	// Replace everything that's not alpha-numeric with default replacer
 	r := regexp.MustCompile(`([^a-zA-Z0-9]+)`)
-	r.ReplaceAllString(str, defaultReplacer)
+	str = r.ReplaceAllString(str, defaultReplacer)
 
 	// Eliminate duplicate of default replacer
-	str = strings.Replace(str, strings.Repeat(defaultReplacer, 5), defaultReplacer, -1)
-	str = strings.Replace(str, strings.Repeat(defaultReplacer, 4), defaultReplacer, -1)
-	str = strings.Replace(str, strings.Repeat(defaultReplacer, 3), defaultReplacer, -1)
-	str = strings.Replace(str, strings.Repeat(defaultReplacer, 2), defaultReplacer, -1)
-
+	for i := 10; i >= 1; i-- {
+		str = strings.Replace(str, strings.Repeat(defaultReplacer, i), defaultReplacer, -1)
+	}
 	// Finally, replace the default replacer with the one passed in
 	str = strings.Replace(str, defaultReplacer, replacer, -1)
 	str = strings.Trim(str, replacer)
