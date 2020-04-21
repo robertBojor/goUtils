@@ -110,6 +110,14 @@ func (u *Utils) LogMetrics(startTime time.Time, handler string, httpCode *int) {
 // SplitName - Split a full name into counter parts
 func (u *Utils) SplitName(n string) (ne NameElements) {
 	nameBits := strings.Split(n, " ")
+	if len(nameBits) == 0 {
+		return
+	}
+	if len(nameBits) == 1 {
+		ne.FirstName = n
+		ne.LastName = ""
+		return
+	}
 	if firstName := nameBits[0]; firstName != "" {
 		ne.FirstName = firstName
 	}
