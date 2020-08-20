@@ -59,4 +59,5 @@ var englishStopWords = []string{
 	"who'll", "whom", "whomever", "who's", "whose", "why", "widely", "will", "willing", "wish", "with", "within", "without",
 	"wont", "words", "world", "would", "wouldn't", "www", "x", "y", "yes", "yet", "you", "you'd", "you'll", "your",
 	"you're", "yours", "yourself", "yourselves", "you've", "z", "zero", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0",
+	"co", "com", "net", "org",
 }
